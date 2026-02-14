@@ -566,7 +566,99 @@ nvm use 18
 
 ---
 
-## 📄 Licencia
+## � Deploy en Vercel
+
+### Pasos para deployar
+
+1. **Instalar Vercel CLI (opcional)**
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Iniciar sesión en Vercel**
+   ```bash
+   vercel login
+   ```
+
+3. **Deploy desde el repositorio**
+   ```bash
+   vercel
+   ```
+   O simplemente conecta tu repositorio de GitHub/GitLab en [vercel.com](https://vercel.com)
+
+4. **Configurar variables de entorno en Vercel**
+   
+   En el dashboard de Vercel, ve a **Settings → Environment Variables** y agrega:
+   
+   - `FRONTEND_URL`: URL de tu aplicación Angular en producción
+     - Ejemplo: `https://tu-frontend.vercel.app`
+   
+   - `NODE_ENV`: `production`
+
+### Build Configuration en Vercel
+
+El proyecto ya incluye `vercel.json` configurado:
+
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/server.js"
+    }
+  ]
+}
+```
+
+### Build Settings en Vercel Dashboard
+
+- **Framework Preset**: Other
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
+- **Install Command**: `npm install`
+- **Node Version**: 18.x (recomendado)
+
+### Solución de problemas CORS
+
+Si tienes errores de CORS después del deploy:
+
+1. **Verifica las variables de entorno** en Vercel Dashboard
+2. **Asegúrate de que FRONTEND_URL** esté configurada correctamente
+3. **La API ya acepta**:
+   - `http://localhost:4200` (desarrollo local)
+   - Tu `FRONTEND_URL` configurada
+   - Cualquier subdominio `*.vercel.app`
+
+### URL de la API deployada
+
+Después del deploy, tu API estará disponible en:
+```
+https://tu-proyecto.vercel.app/api/divisions
+```
+
+### Testing después del deploy
+
+```bash
+# Verificar que la API responde
+curl https://tu-proyecto.vercel.app/
+
+# Obtener todas las divisiones
+curl https://tu-proyecto.vercel.app/api/divisions
+
+# Obtener una división específica
+curl https://tu-proyecto.vercel.app/api/divisions/1
+```
+
+---
+
+## �📄 Licencia
 
 ISC
 

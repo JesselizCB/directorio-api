@@ -13,10 +13,40 @@ const PORT = process.env.PORT || 3000;
 
 /**
  * CORS - Habilitar peticiones desde el frontend Angular
+ * Permite localhost para desarrollo y dominios de producción
  */
+const allowedOrigins = [
+  'http://localhost:4200',
+  'http://localhost:4200/',
+  process.env.FRONTEND_URL, // URL del frontend en producción
+  /\.vercel\.app$/ // Permite cualquier subdominio de vercel.app
+];
+
 app.use(cors({
-  origin: ['http://localhost:4200', 'http://localhost:4200/'],
-  credentials: true
+  origin: (origin, callback) => {
+    // Permitir requests sin origin (como mobile apps, Postman, curl)
+    if (!origin) return callback(null, true);
+    
+    // Verificar si el origin está en la lista permitida
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (typeof allowedOrigin === 'string') {
+        return origin === allowedOrigin;
+      }
+      if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin);
+      }
+      return false;
+    });
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 /**
