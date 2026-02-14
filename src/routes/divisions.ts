@@ -2,8 +2,8 @@
  * Rutas para el manejo de divisiones
  */
 import express, { Request, Response, NextFunction } from 'express';
-import { divisions } from '../data/divisions.js';
-import type { ApiResponse } from '../types/division.js';
+import { divisions } from '../data/divisions';
+import type { ApiResponse } from '../types/division';
 
 const router = express.Router();
 

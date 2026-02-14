@@ -3,7 +3,7 @@
  * Registros simplificados con 5 tipos de división
  */
 
-import type { Division } from '../types/division.js';
+import type { Division } from '../types/division';
 
 export const divisions: Division[] = [
   // ============ NIVEL 1 - CEO ============

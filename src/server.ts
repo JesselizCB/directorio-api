@@ -4,7 +4,7 @@
  */
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import divisionsRouter from './routes/divisions.js';
+import divisionsRouter from './routes/divisions';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
