@@ -123,22 +123,25 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 // ============ INICIAR SERVIDOR ============
 
-app.listen(PORT, () => {
-  console.log('╔════════════════════════════════════════════════╗');
-  console.log('║   API REST - Directorio Organizacional        ║');
-  console.log('║   TypeScript + Express + ES Modules           ║');
-  console.log('╚════════════════════════════════════════════════╝');
-  console.log(`🚀 Servidor corriendo en: http://localhost:${PORT}`);
-  console.log(`📊 Endpoints disponibles:`);
-  console.log(`   GET  /                          - Info de la API`);
-  console.log(`   GET  /api/divisions             - Obtener todas las divisiones`);
-  console.log(`   GET  /api/divisions/:id         - Obtener división por ID`);
-  console.log(`   GET  /api/divisions/search/:name - Buscar divisiones`);
-  console.log(`\n🌐 CORS habilitado para: http://localhost:4200`);
-  console.log(`⏱️  Delay simulado: 300-500ms`);
-  console.log(`📝 Total de registros: 135 divisiones`);
-  console.log(`📘 TypeScript compilado a ES Modules`);
-  console.log('\n✅ Listo para recibir peticiones...\n');
-});
+// Solo iniciar servidor si NO estamos en Vercel
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log('╔════════════════════════════════════════════════╗');
+    console.log('║   API REST - Directorio Organizacional        ║');
+    console.log('║   TypeScript + Express + ES Modules           ║');
+    console.log('╚════════════════════════════════════════════════╝');
+    console.log(`🚀 Servidor corriendo en: http://localhost:${PORT}`);
+    console.log(`📊 Endpoints disponibles:`);
+    console.log(`   GET  /                          - Info de la API`);
+    console.log(`   GET  /api/divisions             - Obtener todas las divisiones`);
+    console.log(`   GET  /api/divisions/:id         - Obtener división por ID`);
+    console.log(`   GET  /api/divisions/search/:name - Buscar divisiones`);
+    console.log(`\n🌐 CORS habilitado para: http://localhost:4200`);
+    console.log(`⏱️  Delay simulado: 300-500ms`);
+    console.log(`📝 Total de registros: 135 divisiones`);
+    console.log(`📘 TypeScript compilado a ES Modules`);
+    console.log('\n✅ Listo para recibir peticiones...\n');
+  });
+}
 
 export default app;
